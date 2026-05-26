@@ -256,7 +256,7 @@ const TEMP = { mes:"Maio", ano:2026, peladas:2, ultima:"14/05/2026" };
    forma= últimos 5 jogos separados por vírgula: V / E / D   */
 const JOGADORES = [
   {nome:"Junior",          ini:"JR",tipo:"M",pts:19,gols:1, ass:1, forma:"V,V,V,E,V"},
-  {nome:"João G.",         ini:"JG",tipo:"D",pts:14,gols:9, ass:0, forma:"V,V,D,V,V"},
+  {nome:"João G.",         ini:"JG",tipo:"D",pts:14,gols:0, ass:0, forma:"V,V,D,V,V"},
   {nome:"Dudex",           ini:"DX",tipo:"M",pts:13,gols:2, ass:2, forma:"V,E,V,V,D"},
   {nome:"Eduardo Serpa",   ini:"ES",tipo:"M",pts:13,gols:0, ass:0, forma:"V,V,E,D,V"},
   {nome:"Jean",            ini:"JN",tipo:"M",pts:13,gols:2, ass:0, forma:"V,V,V,E,D"},
@@ -519,18 +519,6 @@ function bUltima(){
     ${t.jogs.map(j=>`<div class="tj">· ${j}</div>`).join("")}
   </div>`).join("");
 
-  const pbiSteps=[
-    {n:1, txt:`Abra o <b>Power BI Desktop</b> (gratuito em <code>powerbi.microsoft.com</code>) e clique em <b>Obter Dados → Excel</b>`},
-    {n:2, txt:`Selecione o arquivo <b>Pelada_do_Filhao.xlsx</b> no seu computador e clique em <b>Abrir</b>`},
-    {n:3, txt:`No Navegador, marque as 4 tabelas: <b>🟥 Jogadores_Mes</b>, <b>🟨 Artilharia_Mes</b>, <b>🟧 Assistencias_Mes</b> e <b>📅 Historico</b>. Clique em <b>Carregar</b>`},
-    {n:4, txt:`Crie os visuais no painel: <b>Gráfico de barras</b> (Eixo X = nome, Valores = pts_mes) → <b>Tabela</b> com colunas nome, tipo, pts_mes, gols_mes, ass_mes, rank, pct_participacao → <b>Card KPI</b> para artilheiro e garçom → <b>Gráfico de linhas</b> para o histórico`},
-    {n:5, txt:`Salve o arquivo <b>.pbix</b>. Para atualizar toda semana: edite o Excel com os novos dados → no Power BI clique no botão <b>Atualizar</b> na aba Início. Pronto!`},
-  ];
-
-  const tips=[
-    "💡 Use filtros de segmentação (Tipo = M/D) para criar visões de mensalistas vs. diaristas separadamente.",
-    "💡 No Power BI Service (online), configure atualização automática diária e compartilhe o link com o grupo.",
-    "💡 Para o ranking, use a medida DAX: Rank = RANKX(ALL(Jogadores_Mes), [pts_mes],,DESC,Dense)",
   ];
 
   return`<div class="st">Última Pelada <span class="bdg-m">${u.data}</span></div>
