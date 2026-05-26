@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7F1D1D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pelada do Filhão">
 <title>⚽ Pelada do Filhão</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-/* ── RESET ───────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --r1:#7F1D1D;--r2:#991B1B;--r3:#B91C1C;--r4:#DC2626;--r5:#EF4444;
@@ -18,245 +20,151 @@
   --t1:#FFF7ED;--t2:#FECACA;--t3:#FCA5A5;--t4:#9CA3AF;
   --rad:10px;--radl:14px
 }
-html{background:var(--bg);color:var(--t1);font-family:'Barlow',sans-serif;font-size:14px}
-body{max-width:980px;margin:0 auto;padding:12px 14px;min-height:100vh}
-
-/* noise overlay */
-body::before{content:"";position:fixed;inset:0;opacity:.03;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-#app{position:relative;z-index:1}
-
-/* ── HEADER ──────────────────────────────── */
-.hd{
-  background:linear-gradient(135deg,var(--r1) 0%,#3D0000 60%,#1A0800 100%);
-  border:1px solid rgba(245,158,11,.25);border-radius:var(--radl);
-  padding:16px 22px;display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:12px;margin-bottom:10px;
-  box-shadow:0 4px 32px rgba(185,28,28,.35),inset 0 1px 0 rgba(245,158,11,.1);
-  position:relative;overflow:hidden;
-}
-.hd::after{content:"";position:absolute;top:-40%;right:-5%;width:320px;height:320px;
-  background:radial-gradient(circle,rgba(245,158,11,.08) 0%,transparent 70%);pointer-events:none}
-.hd-l{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
-.hd-logo{
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(135deg,var(--y4),var(--y2));
-  display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
-  box-shadow:0 0 20px rgba(245,158,11,.4);border:2px solid rgba(245,158,11,.3);
-}
-.hd-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--y5);letter-spacing:2px;line-height:1;
-  text-shadow:0 0 20px rgba(245,158,11,.5)}
+html{background:var(--bg);color:var(--t1);font-family:'Barlow',sans-serif;font-size:14px;-webkit-tap-highlight-color:transparent}
+body{max-width:980px;margin:0 auto;padding:10px 12px;min-height:100vh}
+/* HEADER */
+.hd{background:linear-gradient(135deg,var(--r1) 0%,#3D0000 60%,#1A0800 100%);border:1px solid rgba(245,158,11,.25);border-radius:var(--radl);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;box-shadow:0 4px 32px rgba(185,28,28,.35),inset 0 1px 0 rgba(245,158,11,.1);position:relative;overflow:hidden}
+.hd::after{content:"";position:absolute;top:-40%;right:-5%;width:280px;height:280px;background:radial-gradient(circle,rgba(245,158,11,.07) 0%,transparent 70%);pointer-events:none}
+.hd-l{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.hd-logo{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--y4),var(--y2));display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 0 20px rgba(245,158,11,.4);border:2px solid rgba(245,158,11,.3)}
+.hd-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--y5);letter-spacing:2px;line-height:1;text-shadow:0 0 20px rgba(245,158,11,.5)}
 .hd-sub{font-size:11px;color:var(--t3);margin-top:3px;letter-spacing:.5px;text-transform:uppercase}
-.hd-stats{display:flex;gap:22px;position:relative;z-index:1}
+.hd-stats{display:flex;gap:18px;position:relative;z-index:1}
 .hs{text-align:center}
-.hs-v{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--y5);line-height:1;
-  text-shadow:0 0 15px rgba(245,158,11,.4)}
+.hs-v{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--y5);line-height:1;text-shadow:0 0 15px rgba(245,158,11,.4)}
 .hs-l{font-size:9px;color:var(--t4);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
-
-/* ── LIVE BADGE ───────────────────────────── */
-.live-badge{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--y5);
-  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
-  border-radius:20px;padding:3px 10px;letter-spacing:.5px;text-transform:uppercase}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--y5);
-  animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(245,158,11,.4)}
-  50%{opacity:.7;box-shadow:0 0 0 4px rgba(245,158,11,0)}}
-
-/* ── NAV ─────────────────────────────────── */
-.nav{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--bdr);
-  border-radius:var(--rad);margin-bottom:12px;padding:4px;flex-wrap:wrap}
-.nb{flex:1;min-width:68px;padding:9px 6px;border:none;background:transparent;color:var(--t4);
-  border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;font-family:'Barlow',sans-serif;
-  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;
-  text-transform:uppercase;letter-spacing:.4px}
-.nb.on{background:linear-gradient(135deg,var(--r2),var(--r1));color:var(--y5);
-  box-shadow:0 2px 12px rgba(185,28,28,.4)}
+.live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--y5);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:20px;padding:3px 10px;letter-spacing:.5px;text-transform:uppercase}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--y5);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{opacity:.7;box-shadow:0 0 0 4px rgba(245,158,11,0)}}
+/* NAV */
+.nav{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);margin-bottom:12px;padding:4px;flex-wrap:wrap}
+.nb{flex:1;min-width:64px;padding:8px 4px;border:none;background:transparent;color:var(--t4);border-radius:7px;cursor:pointer;font-size:11px;font-weight:600;font-family:'Barlow',sans-serif;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px;text-transform:uppercase;letter-spacing:.3px}
+.nb.on{background:linear-gradient(135deg,var(--r2),var(--r1));color:var(--y5);box-shadow:0 2px 12px rgba(185,28,28,.4)}
 .nb:hover:not(.on){background:var(--bg3);color:var(--t1)}
-
-/* ── TABS ────────────────────────────────── */
-.tab{display:none}
-.tab.on{display:block;animation:fi .2s ease}
-@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-
-/* ── PODIUM ──────────────────────────────── */
-.pod{display:flex;justify-content:center;align-items:flex-end;gap:12px;padding:20px 0 12px;flex-wrap:wrap}
-.pi{display:flex;flex-direction:column;align-items:center;gap:7px}
-.pav{border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-family:'Bebas Neue',sans-serif;border:3px solid transparent;transition:transform .2s}
-.pav:hover{transform:scale(1.07)}
-.p1 .pav{width:72px;height:72px;font-size:20px;
-  background:linear-gradient(135deg,var(--r2),var(--r1));
-  border-color:var(--y5);color:var(--y5);box-shadow:0 0 24px rgba(245,158,11,.4)}
-.p2 .pav{width:56px;height:56px;font-size:15px;
-  background:var(--bg3);border-color:rgba(245,158,11,.4);color:var(--y4)}
-.p3 .pav{width:56px;height:56px;font-size:15px;
-  background:var(--bg3);border-color:rgba(239,68,68,.4);color:var(--r5)}
-.pnm{font-size:12px;color:var(--t3);text-align:center;max-width:90px}
-.ppt{font-size:14px;font-weight:700;color:var(--y5);font-family:'Bebas Neue',sans-serif;font-size:18px}
-.pmd{font-size:22px}
-.ppl{width:80px;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(255,255,255,.1)}
-.pl1{height:84px;background:linear-gradient(180deg,rgba(185,28,28,.6),rgba(127,29,29,.3))}
-.pl2{height:60px;background:linear-gradient(180deg,rgba(127,29,29,.4),rgba(90,15,15,.2))}
+/* TABS */
+.tab{display:none}.tab.on{display:block;animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* PODIUM */
+.pod{display:flex;justify-content:center;align-items:flex-end;gap:10px;padding:16px 0 10px;flex-wrap:wrap}
+.pi{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pav{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Bebas Neue',sans-serif;border:3px solid transparent;transition:transform .2s;cursor:default}
+.pav:hover{transform:scale(1.06)}
+.p1 .pav{width:70px;height:70px;font-size:19px;background:linear-gradient(135deg,var(--r2),var(--r1));border-color:var(--y5);color:var(--y5);box-shadow:0 0 24px rgba(245,158,11,.4)}
+.p2 .pav{width:56px;height:56px;font-size:14px;background:var(--bg3);border-color:rgba(245,158,11,.4);color:var(--y4)}
+.p3 .pav{width:56px;height:56px;font-size:14px;background:var(--bg3);border-color:rgba(239,68,68,.4);color:var(--r5)}
+.pnm{font-size:12px;color:var(--t3);text-align:center;max-width:88px}
+.ppt{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--y5)}
+.pmd{font-size:20px}
+.ppl{width:78px;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(255,255,255,.1)}
+.pl1{height:82px;background:linear-gradient(180deg,rgba(185,28,28,.6),rgba(127,29,29,.3))}
+.pl2{height:58px;background:linear-gradient(180deg,rgba(127,29,29,.4),rgba(90,15,15,.2))}
 .pl3{height:44px;background:linear-gradient(180deg,rgba(90,15,15,.35),rgba(60,10,10,.15))}
-
-/* ── SECTION TITLE ───────────────────────── */
-.st{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--t1);
-  display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+/* SECTION TITLE */
+.st{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;color:var(--t1);display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
 .bdg{font-size:10px;padding:2px 10px;border-radius:20px;font-weight:700;letter-spacing:.6px;font-family:'Barlow',sans-serif}
 .bdg-r{background:rgba(185,28,28,.25);color:var(--r5);border:1px solid rgba(239,68,68,.3)}
 .bdg-y{background:rgba(180,83,9,.25);color:var(--y5);border:1px solid rgba(245,158,11,.3)}
 .bdg-m{font-size:12px;color:var(--t4);font-weight:500;font-family:'Barlow',sans-serif;letter-spacing:0}
-
-/* ── SEARCH / FILTER ─────────────────────── */
-.sb{display:flex;align-items:center;gap:8px;background:var(--bg3);
-  border:1px solid var(--bdr);border-radius:var(--rad);padding:8px 14px;margin-bottom:10px;
-  transition:border-color .2s}
+/* SEARCH / FILTER */
+.sb{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rad);padding:8px 12px;margin-bottom:10px;transition:border-color .2s}
 .sb:focus-within{border-color:rgba(245,158,11,.3)}
-.sb input{border:none;background:transparent;flex:1;font-size:13px;color:var(--t1);
-  outline:none;font-family:'Barlow',sans-serif}
+.sb input{border:none;background:transparent;flex:1;font-size:13px;color:var(--t1);outline:none;font-family:'Barlow',sans-serif}
 .sb input::placeholder{color:var(--t4)}
 .fr{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.fb{padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;
-  border:1px solid var(--bdr);background:transparent;color:var(--t4);transition:all .12s;
-  font-family:'Barlow',sans-serif;text-transform:uppercase;letter-spacing:.5px}
+.fb{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--bdr);background:transparent;color:var(--t4);transition:all .12s;font-family:'Barlow',sans-serif;text-transform:uppercase;letter-spacing:.4px}
 .fb.on{background:rgba(185,28,28,.3);color:var(--y5);border-color:rgba(245,158,11,.3)}
 .fb:hover:not(.on){background:var(--bg3);color:var(--t1)}
-
-/* ── TABLE ───────────────────────────────── */
+/* TABLE */
 .tw{border:1px solid var(--bdr);border-radius:var(--radl);overflow:hidden;margin-bottom:16px}
 table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{background:linear-gradient(135deg,var(--r1),#250A0A);color:var(--t4);
-  font-size:10px;text-transform:uppercase;letter-spacing:.6px;padding:10px 12px;
-  text-align:left;font-weight:700;font-family:'Barlow',sans-serif}
+thead th{background:linear-gradient(135deg,var(--r1),#250A0A);color:var(--t4);font-size:10px;text-transform:uppercase;letter-spacing:.6px;padding:10px 10px;text-align:left;font-weight:700;font-family:'Barlow',sans-serif}
 tbody tr{border-top:1px solid var(--bdr);transition:background .1s}
 tbody tr:hover{background:rgba(185,28,28,.06)}
-td{padding:10px 12px;color:var(--t1);vertical-align:middle}
+td{padding:9px 10px;color:var(--t1);vertical-align:middle}
 .rn{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--t4)}
 .r1c{color:var(--y5)!important;text-shadow:0 0 8px rgba(245,158,11,.4)}
 .r2c{color:var(--y4)!important}
 .r3c{color:var(--r5)!important}
 .pv{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--y5)}
 .pnc{font-weight:600;font-size:13px}
-.tb{font-size:10px;padding:2px 9px;border-radius:10px;display:inline-block;font-weight:700;
-  font-family:'Barlow',sans-serif;letter-spacing:.3px}
+.tb{font-size:10px;padding:2px 8px;border-radius:10px;display:inline-block;font-weight:700;font-family:'Barlow',sans-serif;letter-spacing:.3px}
 .tm{background:rgba(185,28,28,.2);color:var(--r5);border:1px solid rgba(239,68,68,.3)}
 .td{background:rgba(180,83,9,.2);color:var(--y5);border:1px solid rgba(245,158,11,.3)}
-.bw{display:flex;align-items:center;gap:7px}
+.bw{display:flex;align-items:center;gap:6px}
 .bl{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--r4),var(--y4))}
-.pl{font-size:11px;color:var(--t4);min-width:40px}
+.pl{font-size:11px;color:var(--t4);min-width:36px}
 .fc{display:flex;gap:3px}
-.fv{width:18px;height:18px;border-radius:3px;background:rgba(22,163,74,.2);color:#4ade80;
-  font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.fe{width:18px;height:18px;border-radius:3px;background:rgba(180,83,9,.3);color:var(--y5);
-  font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.fd{width:18px;height:18px;border-radius:3px;background:rgba(127,29,29,.4);color:var(--r5);
-  font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.fv{width:17px;height:17px;border-radius:3px;background:rgba(22,163,74,.2);color:#4ade80;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.fe{width:17px;height:17px;border-radius:3px;background:rgba(180,83,9,.3);color:var(--y5);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.fd{width:17px;height:17px;border-radius:3px;background:rgba(127,29,29,.4);color:var(--r5);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
 @media(max-width:560px){.hm{display:none!important}}
-
-/* ── STAT CARDS ──────────────────────────── */
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin-bottom:16px}
-.sc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);padding:14px 16px;
-  position:relative;overflow:hidden}
-.sc::after{content:"";position:absolute;bottom:-10px;right:-10px;width:60px;height:60px;
-  border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.08),transparent 70%)}
+/* STAT CARDS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:16px}
+.sc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);padding:14px 16px;position:relative;overflow:hidden}
+.sc::after{content:"";position:absolute;bottom:-10px;right:-10px;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.07),transparent 70%)}
 .sl{font-size:11px;color:var(--t4);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
 .sv{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--t1);line-height:1}
 .ss{font-size:11px;color:var(--y5);margin-top:4px;font-weight:600}
-
-/* ── BARS ────────────────────────────────── */
+/* BARS */
 .gb{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--y4),var(--y5));display:inline-block}
 .ab{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--r3),var(--r5));display:inline-block}
-
-/* ── PLAYER CARDS ────────────────────────── */
-.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:10px}
-.pc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--radl);padding:14px;
-  transition:border-color .15s,box-shadow .15s}
+/* PLAYER CARDS */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.pc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--radl);padding:14px;transition:border-color .15s,box-shadow .15s}
 .pc:hover{border-color:rgba(245,158,11,.25);box-shadow:0 4px 20px rgba(185,28,28,.2)}
 .pch{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.pca{width:46px;height:46px;border-radius:50%;
-  background:linear-gradient(135deg,var(--r2),var(--r1));
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--y5);flex-shrink:0;
-  box-shadow:0 0 12px rgba(185,28,28,.3)}
+.pca{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--r2),var(--r1));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--y5);flex-shrink:0;box-shadow:0 0 12px rgba(185,28,28,.3)}
 .pcn{font-weight:700;font-size:14px;color:var(--t1)}
 .pcp{margin-left:auto;text-align:right}
 .pcpv{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--y5)}
 .pcpl{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:.4px}
 .pcs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.ps{background:var(--bg3);border-radius:7px;padding:8px 4px;text-align:center;
-  border:1px solid var(--bdr)}
+.ps{background:var(--bg3);border-radius:7px;padding:8px 4px;text-align:center;border:1px solid var(--bdr)}
 .psv{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--t1)}
 .psl{font-size:9px;color:var(--t4);margin-top:2px;text-transform:uppercase;letter-spacing:.3px}
-
-/* ── HISTÓRICO ───────────────────────────── */
-.hcw{position:relative;width:100%;height:260px;margin-bottom:8px;
-  background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);padding:12px}
-.hl{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px;font-size:12px;color:var(--t4)}
+/* HISTÓRICO */
+.hcw{position:relative;width:100%;height:240px;margin-bottom:8px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);padding:12px}
+.hl{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;font-size:12px;color:var(--t4)}
 .hli{display:flex;align-items:center;gap:5px;font-weight:500}
 .hld{width:10px;height:10px;border-radius:2px}
-.hmg{display:grid;grid-template-columns:repeat(auto-fill,minmax(192px,1fr));gap:10px}
+.hmg{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:10px}
 .hmc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden}
-.hmt{background:linear-gradient(135deg,var(--r1),#250A0A);padding:9px 14px;
-  font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:var(--y5)}
+.hmt{background:linear-gradient(135deg,var(--r1),#250A0A);padding:9px 14px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:var(--y5)}
 .hmr{display:flex;justify-content:space-between;padding:6px 14px;font-size:12px;border-top:1px solid var(--bdr)}
 .hpos{color:var(--t4);min-width:24px;font-weight:700}
 .hnm{flex:1;color:var(--t1)}
 .hpt{font-weight:700;color:var(--y5)}
-
-/* ── ÚLTIMA PELADA ───────────────────────── */
-.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:10px;margin-top:10px}
+/* ÚLTIMA PELADA */
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px}
 .tc{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad);overflow:hidden}
-.tch{padding:10px 14px;font-size:13px;font-weight:700;text-align:center;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:15px}
+.tch{padding:9px 12px;font-size:13px;font-weight:700;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px}
 .t-b{background:rgba(71,85,105,.25);color:#CBD5E1}
 .t-p{background:rgba(15,15,15,.6);color:#9CA3AF}
 .t-v{background:rgba(127,29,29,.4);color:var(--r5)}
-.tres{text-align:center;font-size:11px;color:var(--t4);padding:4px 14px 7px;border-bottom:1px solid var(--bdr);font-weight:600}
-.tj{padding:5px 14px;font-size:12px;color:var(--t3);border-top:1px solid rgba(239,68,68,.06)}
-
-/* ── POWER BI GUIDE ──────────────────────── */
-.pbi-wrap{margin-top:20px}
-.pbi-box{background:var(--bg2);border:1px solid rgba(245,158,11,.2);border-radius:var(--radl);overflow:hidden;margin-bottom:12px}
-.pbi-hdr{background:linear-gradient(135deg,var(--y1),var(--r1));padding:14px 18px;
-  display:flex;align-items:center;gap:10px}
-.pbi-hdr-icon{font-size:22px}
-.pbi-hdr-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--y5)}
-.pbi-hdr-sub{font-size:11px;color:var(--t3);margin-top:1px}
-.pbi-steps{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
-.pbi-step{display:flex;gap:14px;align-items:flex-start}
-.pbi-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--r3),var(--r2));
-  color:var(--y5);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;font-family:'Bebas Neue',sans-serif;box-shadow:0 2px 8px rgba(185,28,28,.3)}
-.pbi-txt{font-size:13px;color:var(--t2);line-height:1.6}
-.pbi-txt b{color:var(--t1)}
-.pbi-txt code{background:rgba(185,28,28,.2);border:1px solid rgba(239,68,68,.25);padding:1px 7px;border-radius:4px;font-size:12px;color:var(--r5);font-family:monospace}
-.pbi-tip{background:rgba(180,83,9,.1);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:10px 14px;
-  font-size:12px;color:var(--y4);display:flex;gap:8px;align-items:flex-start;margin:4px 0}
-.pbi-tip-icon{font-size:14px;flex-shrink:0;margin-top:1px}
-.pbi-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.15),transparent);margin:2px 0}
-
-/* ── FOOTER ──────────────────────────────── */
-.ft{text-align:center;padding:20px 0 8px;font-size:11px;color:var(--t4);letter-spacing:.5px}
+.tres{text-align:center;font-size:11px;color:var(--t4);padding:4px 12px 6px;border-bottom:1px solid var(--bdr);font-weight:600}
+.tj{padding:5px 12px;font-size:12px;color:var(--t3);border-top:1px solid rgba(239,68,68,.06)}
+/* FOOTER */
+.ft{text-align:center;padding:16px 0 6px;font-size:11px;color:var(--t4);letter-spacing:.5px}
 .ft span{color:var(--y4)}
 </style>
 </head>
 <body>
 
-<!-- ╔══════════════════════════════════════════════════════════╗
-     ║  BASE DE DADOS — EDITAR AQUI TODA SEMANA (Ctrl+H)       ║
-     ╚══════════════════════════════════════════════════════════╝ -->
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  BASE DE DADOS — EDITAR AQUI TODA SEMANA                    ║
+     ║  Ctrl+H (localizar/substituir) para achar os números        ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
 <script>
-/* ===== EDITAR AQUI — CONFIGURAÇÃO ===== */
+/* ===== CONFIGURAÇÃO ===== */
 const CFG  = { nome:"Pelada do Filhão", desde:"2022", dia:"Quinta-feira" };
 const TEMP = { mes:"Maio", ano:2026, peladas:2, ultima:"14/05/2026" };
 
-/* ===== EDITAR AQUI — JOGADORES (atualizar toda semana) =====
-   pts  = pontos acumulados no mês
-   gols = gols no mês  |  ass = assistências no mês
-   forma= últimos 5 jogos separados por vírgula: V / E / D   */
+/* ===== JOGADORES — atualizar pts, gols, ass e forma toda semana =====
+   tipo: M = Mensalista | D = Diarista
+   forma: últimos 5 jogos separados por vírgula (V / E / D)           */
 const JOGADORES = [
   {nome:"Junior",          ini:"JR",tipo:"M",pts:19,gols:1, ass:1, forma:"V,V,V,E,V"},
-  {nome:"João G.",         ini:"JG",tipo:"D",pts:14,gols:0, ass:0, forma:"V,V,D,V,V"},
+  {nome:"João G.",         ini:"JG",tipo:"D",pts:14,gols:9, ass:0, forma:"V,V,D,V,V"},
   {nome:"Dudex",           ini:"DX",tipo:"M",pts:13,gols:2, ass:2, forma:"V,E,V,V,D"},
   {nome:"Eduardo Serpa",   ini:"ES",tipo:"M",pts:13,gols:0, ass:0, forma:"V,V,E,D,V"},
   {nome:"Jean",            ini:"JN",tipo:"M",pts:13,gols:2, ass:0, forma:"V,V,V,E,D"},
@@ -264,7 +172,7 @@ const JOGADORES = [
   {nome:"Rodrigo Azevedo", ini:"RA",tipo:"M",pts:12,gols:3, ass:0, forma:"V,V,D,E,V"},
   {nome:"Jota",            ini:"JT",tipo:"M",pts:12,gols:0, ass:1, forma:"E,V,V,D,V"},
   {nome:"Vini Paulista",   ini:"VP",tipo:"M",pts:11,gols:1, ass:0, forma:"V,D,E,V,V"},
-  {nome:"Marlos",          ini:"MK",tipo:"D",pts: 9,gols:2, ass:0, forma:"V,V,D,D,E"},
+  {nome:"Marlos",          ini:"ML",tipo:"D",pts: 9,gols:2, ass:0, forma:"V,V,D,D,E"},
   {nome:"Diego",           ini:"DG",tipo:"M",pts: 9,gols:4, ass:1, forma:"E,V,D,V,V"},
   {nome:"Fran",            ini:"FR",tipo:"D",pts: 9,gols:0, ass:0, forma:"V,E,V,D,V"},
   {nome:"Rivaldo",         ini:"RV",tipo:"M",pts: 8,gols:0, ass:0, forma:"D,V,E,V,V"},
@@ -277,28 +185,29 @@ const JOGADORES = [
   {nome:"Falero",          ini:"FL",tipo:"D",pts: 2,gols:0, ass:1, forma:"D,E,D,V,D"},
   {nome:"Pavanelli",       ini:"PV",tipo:"D",pts: 1,gols:0, ass:0, forma:"D,D,E,D,V"},
   {nome:"Matheus Martins", ini:"MM",tipo:"M",pts: 1,gols:0, ass:0, forma:"D,D,D,E,D"},
-  {nome:"Victor Pena",     ini:"VP",tipo:"M",pts: 0,gols:0, ass:0, forma:"D,D,D,D,D"},
+  {nome:"Victor Pena",     ini:"VC",tipo:"M",pts: 0,gols:0, ass:0, forma:"D,D,D,D,D"},
 ];
 
-/* ===== EDITAR AQUI — ARTILHARIA ===== */
+/* ===== ARTILHARIA — ordenado do maior para o menor ===== */
 const ARTILHARIA = [
-  {nome:"Diego",           gols:4,pres:2},
-  {nome:"Rodrigo Azevedo", gols:3,pres:1},
-  {nome:"Carrilho",        gols:3,pres:1},
-  {nome:"Marlos",          gols:2,pres:1},
-  {nome:"Leo Campos",      gols:2,pres:2},
-  {nome:"Jean",            gols:2,pres:2},
-  {nome:"Dudex",           gols:2,pres:2},
-  {nome:"Vini Paulista",   gols:1,pres:2},
-  {nome:"Matheus Duarte",  gols:1,pres:2},
-  {nome:"Bernardo",        gols:1,pres:2},
+  {nome:"João G.",         gols:9, pres:1},
+  {nome:"Diego",           gols:4, pres:2},
+  {nome:"Rodrigo Azevedo", gols:3, pres:1},
+  {nome:"Carrilho",        gols:3, pres:1},
+  {nome:"Marlos",          gols:2, pres:1},
+  {nome:"Leo Campos",      gols:2, pres:2},
+  {nome:"Jean",            gols:2, pres:2},
+  {nome:"Dudex",           gols:2, pres:2},
+  {nome:"Vini Paulista",   gols:1, pres:2},
+  {nome:"Matheus Duarte",  gols:1, pres:2},
+  {nome:"Bernardo",        gols:1, pres:2},
 ];
 
-/* ===== EDITAR AQUI — ASSISTÊNCIAS ===== */
+/* ===== ASSISTÊNCIAS — ordenado do maior para o menor ===== */
 const ASSISTENCIAS = [
   {nome:"Dudex",      ass:2,pres:2},
-  {nome:"Rodriguinho",ass:1,pres:1},
   {nome:"Carrilho",   ass:1,pres:1},
+  {nome:"Rodriguinho",ass:1,pres:1},
   {nome:"Falero",     ass:1,pres:1},
   {nome:"Diego",      ass:1,pres:1},
   {nome:"Leo Campos", ass:1,pres:2},
@@ -306,7 +215,7 @@ const ASSISTENCIAS = [
   {nome:"Jota",       ass:1,pres:2},
 ];
 
-/* ===== EDITAR AQUI — HISTÓRICO (adicionar novo mês ao virar o mês) ===== */
+/* ===== HISTÓRICO — adicionar novo mês ao virar o mês ===== */
 const HISTORICO = [
   {mes:"Nov/22",dados:[
     {nome:"Marlos",pts:65},{nome:"Henrique",pts:64},{nome:"César",pts:64},
@@ -328,7 +237,7 @@ const HISTORICO = [
   ]},
 ];
 
-/* ===== EDITAR AQUI — ÚLTIMA PELADA ===== */
+/* ===== ÚLTIMA PELADA ===== */
 const ULTIMA = {
   data:"14/05/2026",
   times:[
@@ -353,25 +262,22 @@ function build(){
     <div class="hd">
       <div class="hd-l">
         <div class="hd-logo">⚽</div>
-        <div>
-          <div class="hd-title">${CFG.nome}</div>
-          <div class="hd-sub">desde ${CFG.desde} · ${CFG.dia}</div>
-        </div>
+        <div><div class="hd-title">${CFG.nome}</div><div class="hd-sub">desde ${CFG.desde} · ${CFG.dia}</div></div>
       </div>
       <div class="hd-stats">
         <div class="hs"><div class="hs-v">${jgs.filter(j=>j.pts>0).length}</div><div class="hs-l">Jogadores</div></div>
         <div class="hs"><div class="hs-v">${TEMP.peladas}</div><div class="hs-l">Peladas</div></div>
         <div class="hs"><div class="hs-v">${top3[0].pts}</div><div class="hs-l">Líder</div></div>
-        <div class="live-badge"><div class="live-dot"></div>${TEMP.mes} ${TEMP.ano}</div>
+        <div class="live"><div class="ldot"></div>${TEMP.mes} ${TEMP.ano}</div>
       </div>
     </div>
     <nav class="nav">
       <button class="nb on" onclick="tab('cl',this)">🏆 <span>Ranking</span></button>
       <button class="nb"    onclick="tab('ar',this)">⚽ <span>Artilharia</span></button>
-      <button class="nb"    onclick="tab('as',this)">🤝 <span>Assistências</span></button>
+      <button class="nb"    onclick="tab('as',this)">🤝 <span>Assist.</span></button>
       <button class="nb"    onclick="tab('jg',this)">👥 <span>Jogadores</span></button>
       <button class="nb"    onclick="tab('hi',this)">📈 <span>Histórico</span></button>
-      <button class="nb"    onclick="tab('up',this)">📅 <span>Última Pelada</span></button>
+      <button class="nb"    onclick="tab('up',this)">📅 <span>Última</span></button>
     </nav>
     <div id="t-cl" class="tab on">${bClass(jgs,tot,top3)}</div>
     <div id="t-ar" class="tab">${bArt()}</div>
@@ -392,7 +298,7 @@ function bClass(jgs,tot,top3){
   </div>`;
   const rows=jgs.map((j,i)=>{
     const rk=i+1,rc=rk===1?"r1c":rk===2?"r2c":rk===3?"r3c":"";
-    const bw=mx>0?Math.round((j.pts/mx)*84):0;
+    const bw=mx>0?Math.round((j.pts/mx)*82):0;
     const pct=tot>0?((j.pts/tot)*100).toFixed(1):"0.0";
     const tc=j.tipo==="M"?"tm":"td",tl=j.tipo==="M"?"Mensalista":"Diarista";
     const fh=(j.forma||"").split(",").map(f=>{const fc=f.trim();return`<div class="${fc==="V"?"fv":fc==="E"?"fe":"fd"}">${fc}</div>`;}).join("");
@@ -407,17 +313,17 @@ function bClass(jgs,tot,top3){
     </tr>`;
   }).join("");
   return`${pod}
-    <div class="st">Classificação Geral <span class="bdg bdg-r">PONTOS</span><span class="bdg-m">${TEMP.mes} ${TEMP.ano}</span></div>
-    <div class="sb"><span>🔍</span><input type="text" placeholder="Buscar jogador..." oninput="buscar(this.value)"></div>
-    <div class="fr">
-      <button class="fb on" onclick="ftipo('todos',this)">Todos</button>
-      <button class="fb" onclick="ftipo('M',this)">Mensalistas</button>
-      <button class="fb" onclick="ftipo('D',this)">Diaristas</button>
-    </div>
-    <div class="tw"><table>
-      <thead><tr><th>#</th><th>Jogador</th><th>Tipo</th><th>PTS</th><th class="hm">%</th><th>⚽</th><th>🤝</th><th class="hm">Forma</th></tr></thead>
-      <tbody id="rb">${rows}</tbody>
-    </table></div>`;
+  <div class="st">Classificação Geral <span class="bdg bdg-r">PONTOS</span><span class="bdg-m">${TEMP.mes} ${TEMP.ano}</span></div>
+  <div class="sb"><span>🔍</span><input type="text" placeholder="Buscar jogador..." oninput="buscar(this.value)"></div>
+  <div class="fr">
+    <button class="fb on" onclick="ftipo('todos',this)">Todos</button>
+    <button class="fb" onclick="ftipo('M',this)">Mensalistas</button>
+    <button class="fb" onclick="ftipo('D',this)">Diaristas</button>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Jogador</th><th>Tipo</th><th>PTS</th><th class="hm">%</th><th>⚽</th><th>🤝</th><th class="hm">Forma</th></tr></thead>
+    <tbody id="rb">${rows}</tbody>
+  </table></div>`;
 }
 
 function bArt(){
@@ -479,12 +385,10 @@ function bHist(){
   const leg=names.map((n,i)=>`<div class="hli"><div class="hld" style="background:${PAL[i%PAL.length]}"></div>${n}</div>`).join("");
   const cards=h.map(m=>{
     const s=[...m.dados].sort((a,b)=>b.pts-a.pts);
-    return`<div class="hmc"><div class="hmt">${m.mes}</div>
-      ${s.map((d,i)=>`<div class="hmr"><span class="hpos">${i+1}°</span><span class="hnm">${d.nome}</span><span class="hpt">${d.pts}</span></div>`).join("")}
-    </div>`;
+    return`<div class="hmc"><div class="hmt">${m.mes}</div>${s.map((d,i)=>`<div class="hmr"><span class="hpos">${i+1}°</span><span class="hnm">${d.nome}</span><span class="hpt">${d.pts}</span></div>`).join("")}</div>`;
   }).join("");
   return`<div class="st">Evolução de Pontos</div>
-  <div class="hcw"><canvas id="hc" role="img" aria-label="Gráfico histórico de pontuação mensal">Histórico.</canvas></div>
+  <div class="hcw"><canvas id="hc" role="img" aria-label="Histórico mensal de pontuação">Gráfico histórico.</canvas></div>
   <div class="hl">${leg}</div>
   <div class="st" style="margin-top:4px">Ranking por Mês</div>
   <div class="hmg">${cards}</div>`;
@@ -503,12 +407,8 @@ function bHistChart(){
   if(hChart) hChart.destroy();
   hChart=new Chart(c,{type:"line",data:{labels,datasets:ds},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{
-        x:{ticks:{color:"#9CA3AF",font:{size:11}},grid:{color:"rgba(239,68,68,.08)"}},
-        y:{ticks:{color:"#9CA3AF",font:{size:11}},grid:{color:"rgba(239,68,68,.08)"}}
-      }
-    }
-  });
+      scales:{x:{ticks:{color:"#9CA3AF",font:{size:11}},grid:{color:"rgba(239,68,68,.08)"}},
+              y:{ticks:{color:"#9CA3AF",font:{size:11}},grid:{color:"rgba(239,68,68,.08)"}}}}});
 }
 
 function bUltima(){
@@ -518,45 +418,8 @@ function bUltima(){
     <div class="tres">${t.res}</div>
     ${t.jogs.map(j=>`<div class="tj">· ${j}</div>`).join("")}
   </div>`).join("");
-
-  const pbiSteps=[
-    {n:1, txt:`Abra o <b>Power BI Desktop</b> (gratuito em <code>powerbi.microsoft.com</code>) e clique em <b>Obter Dados → Excel</b>`},
-    {n:2, txt:`Selecione o arquivo <b>Pelada_do_Filhao.xlsx</b> no seu computador e clique em <b>Abrir</b>`},
-    {n:3, txt:`No Navegador, marque as 4 tabelas: <b>🟥 Jogadores_Mes</b>, <b>🟨 Artilharia_Mes</b>, <b>🟧 Assistencias_Mes</b> e <b>📅 Historico</b>. Clique em <b>Carregar</b>`},
-    {n:4, txt:`Crie os visuais no painel: <b>Gráfico de barras</b> (Eixo X = nome, Valores = pts_mes) → <b>Tabela</b> com colunas nome, tipo, pts_mes, gols_mes, ass_mes, rank, pct_participacao → <b>Card KPI</b> para artilheiro e garçom → <b>Gráfico de linhas</b> para o histórico`},
-    {n:5, txt:`Salve o arquivo <b>.pbix</b>. Para atualizar toda semana: edite o Excel com os novos dados → no Power BI clique no botão <b>Atualizar</b> na aba Início. Pronto!`},
-  ];
-
-  const tips=[
-    "💡 Use filtros de segmentação (Tipo = M/D) para criar visões de mensalistas vs. diaristas separadamente.",
-    "💡 No Power BI Service (online), configure atualização automática diária e compartilhe o link com o grupo.",
-    "💡 Para o ranking, use a medida DAX: Rank = RANKX(ALL(Jogadores_Mes), [pts_mes],,DESC,Dense)",
-  ];
-
   return`<div class="st">Última Pelada <span class="bdg-m">${u.data}</span></div>
-  <div class="tg">${tcards}</div>
-  <div class="pbi-wrap">
-    <div class="pbi-box">
-      <div class="pbi-hdr">
-        <div class="pbi-hdr-icon">📊</div>
-        <div>
-          <div class="pbi-hdr-title">Passo a Passo — Power BI</div>
-          <div class="pbi-hdr-sub">Como conectar o Excel ao Power BI e atualizar toda semana</div>
-        </div>
-      </div>
-      <div class="pbi-steps">
-        ${pbiSteps.map(s=>`
-          <div class="pbi-step">
-            <div class="pbi-num">${s.n}</div>
-            <div class="pbi-txt">${s.txt}</div>
-          </div>
-        `).join('<div class="pbi-divider"></div>')}
-        <div style="margin-top:4px">
-          ${tips.map(t=>`<div class="pbi-tip"><div class="pbi-tip-icon">💡</div><div>${t.slice(3)}</div></div>`).join("")}
-        </div>
-      </div>
-    </div>
-  </div>`;
+  <div class="tg">${tcards}</div>`;
 }
 
 function tab(id,btn){
@@ -580,9 +443,7 @@ function ftipo(t,btn){
   buscar(document.querySelector("#t-cl .sb input")?.value||"");
 }
 function bCard(q){
-  document.querySelectorAll(".pc").forEach(c=>{
-    c.style.display=c.dataset.nome.includes(q.toLowerCase())?"":"none";
-  });
+  document.querySelectorAll(".pc").forEach(c=>{c.style.display=c.dataset.nome.includes(q.toLowerCase())?"":"none";});
 }
 build();
 </script>
